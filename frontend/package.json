@@ -1,0 +1,11 @@
+{
+  "name": "learningdhara-app",
+  "version": "1.0.0",
+  "description": "This application is for educational purpose and it provides user to interface for educational videos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "developer",
+  "license": "ISC"
+}
