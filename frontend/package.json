@@ -4,8 +4,21 @@
   "description": "This application is for educational purpose and it provides user to interface for educational videos.",
   "main": "index.js",
   "scripts": {
+    "dev": "webpack serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "developer",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.15",
+    "babel-loader": "^9.1.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
 }
