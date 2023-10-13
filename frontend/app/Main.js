@@ -1,5 +1,6 @@
 import React, { useEffect } from "react"
 import ReactDOM from "react-dom/client"
+import { useImmerReducer } from "use-immer"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Header from "./components/Header"
 import "./assets/css/styles.css"
@@ -9,35 +10,52 @@ import Home from "./components/Home"
 import Footer from "./components/Footer"
 import Modal from "./components/Modal"
 import ClearFix from "./components/ClearFix"
-import HeroBanner from "./components/HeroBanner"
-import CourseStart from "./components/CourseStart"
-import InstructorStart from "./components/InstructorStart"
-import TopCoursesEbooks from "./components/TopCourseEbooks"
-import StudentReviews from "./components/StudentReviews"
-import LatestNews from "./components/LatestNews"
-import CallToAction from "./components/CallToAction"
+
 import LogInModal from "./components/LogInModal"
 import BackToTop from "./components/BackToTop"
+import SignUp from "./components/SignUp"
+import StateContext from "./StateContext"
+import DispatchContext from "./DispatchContext"
+import DashboardSection from "./components/DashboardSection"
 
 function Main() {
-  return (
-    <BrowserRouter>
-      <Header />
-      <ClearFix />
-      <HeroBanner />
-      <CourseStart />
-      <ClearFix />
-      <InstructorStart />
-      <ClearFix />
-      <TopCoursesEbooks />
+  const initialState = {
+    isSignUpOpen: false,
+    loggedIn: false,
+    isDashboardOpen: false,
+  }
+  function ourReducer(draft, action) {
+    switch (action.type) {
+      case "signUp":
+        console.log("OurReducer->SignUP")
+        draft.isSignUpOpen = true
+        draft.isDashboardOpen = false
+        return
+      case "login":
+        draft.loggedIn = true
+        draft.isDashboardOpen = true
+        return
+    }
+  }
 
-      <LatestNews />
-      <ClearFix />
-      <CallToAction />
-      <Footer />
-      <LogInModal />
-      <BackToTop />
-    </BrowserRouter>
+  const [state, dispatch] = useImmerReducer(ourReducer, initialState)
+  return (
+    <StateContext.Provider value={state}>
+      <DispatchContext.Provider value={dispatch}>
+        <BrowserRouter>
+          <Header />
+          <ClearFix />
+          <Routes>
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<DashboardSection />} />
+          </Routes>
+          <Footer />
+          <LogInModal />
+          <BackToTop />
+        </BrowserRouter>
+      </DispatchContext.Provider>
+    </StateContext.Provider>
   )
 }
 

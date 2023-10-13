@@ -1,14 +1,30 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useContext } from "react"
 import Logo from "../assets/img/logo.png"
+import DispatchContext from "../DispatchContext"
+import { useNavigate, Link } from "react-router-dom"
+import StateContext from "../StateContext"
 function Header() {
+  const appDispatch = useContext(DispatchContext)
+  const appState = useContext(StateContext)
+  const navigate = useNavigate()
+  function handleSignUpClick(e) {
+    e.preventDefault()
+    appDispatch({ type: "signUp" })
+    navigate("/signUp")
+  }
+  function handleDashboardClick(e) {
+    e.preventDefault()
+    appDispatch({ type: "login" })
+    navigate("/dashboard")
+  }
   return (
-    <div className="header header-transparent dark-text">
+    <div className={"header " + (appState.isDashboardOpen ? "header-light" : "header-transparent dark-text")}>
       <div className="container">
         <nav id="navigation" className="navigation navigation-landscape">
           <div className="nav-header">
-            <a className="nav-brand" href="#">
+            <Link href="#" to="/" className="nav-brand">
               <img src={Logo} className="logo" alt="" />
-            </a>
+            </Link>
             <div className="nav-toggle"></div>
             <div className="mobile_nav">
               <ul>
@@ -198,7 +214,9 @@ function Header() {
               </li>
 
               <li>
-                <a href="dashboard.html">Dashboard</a>
+                <a href="#" onClick={handleDashboardClick}>
+                  Dashboard
+                </a>
               </li>
             </ul>
 
@@ -211,7 +229,7 @@ function Header() {
                 </a>
               </li>
               <li className="add-listing theme-bg">
-                <a href="signup.html" className="text-white">
+                <a href="#" onClick={handleSignUpClick} className="text-white">
                   Get Started
                 </a>
               </li>
