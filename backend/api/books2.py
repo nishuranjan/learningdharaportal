@@ -1,7 +1,8 @@
 from typing import Optional
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Path, Query, HTTPException
 from pydantic import BaseModel, Field
+from starlette import status
 
 app = FastAPI()
 
@@ -50,20 +51,22 @@ BOOKS = [
 ]
 
 
-@app.get("/books")
+@app.get("/books", status_code=status.HTTP_200_OK)
 async def read_all_books():
     return BOOKS
 
 
-@app.get("/books/{book_id}")
-async def read_book(book_id: int):
+@app.get("/books/{book_id}", status_code=status.HTTP_200_OK)
+async def read_book(book_id: int = Path(gt=0)):
     for book in BOOKS:
         if book.id == book_id:
             return book
 
+    raise HTTPException(status_code=404, detail='Items Not Found')
 
-@app.get("/books/")
-async def read_book_by_rating(book_rating: int):
+
+@app.get("/books/", status_code=status.HTTP_200_OK)
+async def read_book_by_rating(book_rating: int = Query(gt=0, lt=6)):
     books_to_return = []
     for book in BOOKS:
         if book.rating == book_rating:
@@ -72,7 +75,7 @@ async def read_book_by_rating(book_rating: int):
     return books_to_return
 
 
-@app.post("/create_book")
+@app.post("/create_book", status_code=status.HTTP_201_CREATED)
 async def create_books(book_request: BookRequest):
     new_book = Book(**book_request.model_dump())
     print(type(new_book))
@@ -87,16 +90,25 @@ def find_book_id(book: Book):
     return book
 
 
-@app.put("/books/update_book")
+@app.put("/books/update_book", status_code=status.HTTP_204_NO_CONTENT)
 async def update_book(book: BookRequest):
+    book_changed = False
     for i in range(len(BOOKS)):
         if BOOKS[i].id == book.id:
             BOOKS[i] = book
+            book_changed = True
+
+    if not book_changed:
+        raise HTTPException(status_code=404, detail='Items Not Found')
 
 
-@app.delete("/books/{book_id}")
-async def update_book(book: BookRequest):
+@app.delete("/books/{book_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_book(book_id: int = Path(gt=0)):
+    book_changed = False
     for i in range(len(BOOKS)):
-        if BOOKS[i].id == book.id:
+        if BOOKS[i].id == book_id:
             BOOKS.pop(i)
+            book_changes = True
             break
+    if not book_changed:
+        raise HTTPException(status_code=404, detail='Items Not Found')
