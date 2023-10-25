@@ -23,6 +23,7 @@ function Main() {
     isSignUpOpen: false,
     loggedIn: false,
     isDashboardOpen: false,
+    isCourseExpand: false,
   }
   function ourReducer(draft, action) {
     switch (action.type) {
@@ -34,6 +35,9 @@ function Main() {
       case "login":
         draft.loggedIn = true
         draft.isDashboardOpen = true
+        return
+      case "couse-expanded":
+        draft.isCourseExpand = true
         return
     }
   }
