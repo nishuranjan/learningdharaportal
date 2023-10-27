@@ -52,7 +52,7 @@ function Main() {
           <Routes>
             <Route path="/signup" element={<SignUp />} />
             <Route path="/" element={<Home />} />
-            <Route path="/dashboard" element={<DashboardSection />} />
+            <Route path="/dashboard/*" element={<DashboardSection />} />
           </Routes>
           <Footer />
           <LogInModal />

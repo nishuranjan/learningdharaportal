@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 
 function LogInModal() {
   return (
-    <div className="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginmodal" aria-hidden="true">
+    <div className="modal fade" id="login" tabIndex="-1" role="dialog" aria-labelledby="loginmodal" aria-hidden="true">
       <div className="modal-dialog modal-xl login-pop-form" role="document">
         <div className="modal-content overli" id="loginmodal">
           <div className="modal-header">
@@ -35,19 +35,19 @@ function LogInModal() {
                 <div className="form-group row">
                   <div className="col-xl-4 col-lg-4 col-4">
                     <input id="admin" className="checkbox-custom" name="admin" type="checkbox" />
-                    <label for="admin" className="checkbox-custom-label">
+                    <label htmlFor="admin" className="checkbox-custom-label">
                       Admin
                     </label>
                   </div>
                   <div className="col-xl-4 col-lg-4 col-4">
-                    <input id="student" className="checkbox-custom" name="student" type="checkbox" checked />
-                    <label for="student" className="checkbox-custom-label">
+                    <input id="student" className="checkbox-custom" name="student" type="checkbox" defaultChecked />
+                    <label htmlFor="student" className="checkbox-custom-label">
                       Student
                     </label>
                   </div>
                   <div className="col-xl-4 col-lg-4 col-4">
                     <input id="instructor" className="checkbox-custom" name="instructor" type="checkbox" />
-                    <label for="instructor" className="checkbox-custom-label">
+                    <label htmlFor="instructor" className="checkbox-custom-label">
                       Tutors
                     </label>
                   </div>
@@ -65,17 +65,17 @@ function LogInModal() {
                 <div className="rcs_log_126 full">
                   <ul className="social_log_45 row">
                     <li className="col-xl-4 col-lg-4 col-md-4 col-4">
-                      <a href="javascript:void(0);" className="sl_btn">
+                      <a href="#" className="sl_btn">
                         <i className="ti-facebook text-info"></i>Facebook
                       </a>
                     </li>
                     <li className="col-xl-4 col-lg-4 col-md-4 col-4">
-                      <a href="javascript:void(0);" className="sl_btn">
+                      <a href="#" className="sl_btn">
                         <i className="ti-google text-danger"></i>Google
                       </a>
                     </li>
                     <li className="col-xl-4 col-lg-4 col-md-4 col-4">
-                      <a href="javascript:void(0);" className="sl_btn">
+                      <a href="#" className="sl_btn">
                         <i className="ti-twitter theme-cl"></i>Twitter
                       </a>
                     </li>
